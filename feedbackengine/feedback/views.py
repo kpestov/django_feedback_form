@@ -3,6 +3,10 @@ from django.views.generic import View
 from .forms import FeedbackForm
 from django.shortcuts import redirect
 from django.urls import reverse
+from .models import Feedback, Product
+
+from rest_framework import viewsets
+from .serializers import FeedbackSerializer, ProductSerializer
 
 
 class HomePage(View):
@@ -20,4 +24,13 @@ class HomePage(View):
 
         return render(request, 'feedback/fill_form.html', context={'form': bound_form})
 
+
+class FeedbackView(viewsets.ModelViewSet):
+    queryset = Feedback.objects.all()
+    serializer_class = FeedbackSerializer
+
+
+class ProductView(viewsets.ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
 
