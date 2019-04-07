@@ -1,0 +1,41 @@
+{% extends 'feedback/base.html' %}
+
+{% block title %}
+    Fill the form
+{% endblock %}
+
+{% block content %}
+
+   <!-- Feedback form -->
+    <div id="contactus" class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <form action="{% url 'feedback_url' %}" method="post">
+
+            {% csrf_token %}
+
+            {% for field in form %}
+
+              <div class="form-group">
+
+                {% if fields.errors %}
+                   <div class="alert alert-danger">
+                       {{ fields.errors }}
+                   </div>
+                {% endif %}
+
+                {{ field.label }}
+                {{ field }}
+
+            </div>
+
+            {% endfor %}
+
+            <button class="btn btn-primary" type="submit">Submit</button>
+
+          </form>
+        </div>
+      </div>
+    </div>
+
+{% endblock %}
